@@ -26,6 +26,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerEnter2D (Collider2D trig) {
+		if (trig.tag == "bouncer") {
+			isOnGround = true;
+		}
+	}
+
 	private void InitializeVariables () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
@@ -39,6 +45,13 @@ public class PlayerController : MonoBehaviour {
 
 	public void Die () {
 		Debug.Log ("Player Dead");
+	}
+
+	public void Bounce (float force) {
+		//if (isOnGround) {
+			isOnGround = false;
+			rb.velocity = new Vector2 (0, force);
+		//}
 	}
 
 	private void WalkKeyboard () {
