@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+	public static PlayerController instance;
+
 	[SerializeField]
 	private float moveForce = 20f, jumpForce = 600f, maxVelocity = 4f;
 	private Rigidbody2D rb;
@@ -11,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void Awake () {
 		InitializeVariables ();
+		MakeInstance ();
 	}
 
 	private void FixedUpdate () {
@@ -28,39 +31,22 @@ public class PlayerController : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 	}
 
+	private void MakeInstance () {
+		if (instance == null) {
+			instance = this;
+		}
+	}
+
+	public void Die () {
+		Debug.Log ("Player Dead");
+	}
+
 	private void WalkKeyboard () {
 		float forceX = 0f;
 		float forceY = 0f;
 
 		float vel = Mathf.Abs (rb.velocity.x);
 		float h = Input.GetAxisRaw ("Horizontal");
-
-		/*
-		Vector3 scale = transform.localScale;
-
-		if (h == 1) {
-			if (vel < maxVelocity) {
-				if (isOnGround) {
-					forceX = moveForce;
-				} else {
-					forceX = moveForce * 5;
-				}
-			}
-			scale.x = 1f;
-		}
-		if (h == -1) {
-			if (vel < maxVelocity) {
-				forceX = -moveForce;
-			}
-			scale.x = -1f;
-		}
-
-		if (h != 0) {
-			anim.SetBool ("walk", true);
-		} else {
-			anim.SetBool ("walk", false);
-		}
-		*/
 
 		if (h > 0) {
 			if (vel < maxVelocity) {
