@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour {
 
 	public void Die () {
 		Debug.Log ("Player Dead");
+		GameplayController.instance.PlayerDied ();
+		Destroy (gameObject);
 	}
 
 	public void Bounce (float force) {
