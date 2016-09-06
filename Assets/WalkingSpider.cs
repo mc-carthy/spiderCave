@@ -19,7 +19,7 @@ public class WalkingSpider : MonoBehaviour {
 		ChangeDirection ();
 	}
 
-	private void OnCollisionEnter2D (Collision col) {
+	private void OnCollisionEnter2D (Collision2D col) {
 		if (col.gameObject.tag == "Player") { 
 			PlayerController.instance.Die ();
 		}
